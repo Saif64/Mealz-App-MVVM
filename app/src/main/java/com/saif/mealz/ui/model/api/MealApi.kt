@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 
-class MealsWebService {
+class MealApi {
     private var api: MealsApi
 
     init {
