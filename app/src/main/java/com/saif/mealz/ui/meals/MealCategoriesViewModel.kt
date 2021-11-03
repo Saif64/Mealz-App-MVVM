@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 
 class MealCategoriesViewModel(private val repository: MealsRepository = MealsRepository()) :
     ViewModel() {
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val meals = getMeals()
