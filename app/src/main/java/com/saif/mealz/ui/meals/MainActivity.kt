@@ -3,15 +3,13 @@ package com.saif.mealz.ui.meals
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.saif.mealz.ui.details.MealDetailScreen
 import com.saif.mealz.ui.theme.MealzTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,9 +17,26 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MealzTheme {
-                MealCategoriesScreen()
+                FoodApp()
             }
         }
     }
 }
 
+@Composable
+private fun FoodApp() {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "destination_meals_list") {
+        composable(route = "destination_meals_list") {
+            MealCategoriesScreen()
+        }
+        composable(
+            route = "destination_meals_list",
+            arguments = listOf(navArgument("meal_category_id") {
+                type = NavType.StringType
+            })
+        ) {
+            MealDetailScreen(meal =)
+        }
+    }
+}
