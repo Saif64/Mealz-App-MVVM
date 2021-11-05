@@ -24,19 +24,19 @@ import com.saif.mealz.ui.model.response.MealResponse
 import com.saif.mealz.ui.theme.MealzTheme
 
 @Composable
-fun MealCategoriesScreen() {
+fun MealCategoriesScreen(navigationCallBack: (String) -> Unit) {
     val viewModel: MealCategoriesViewModel = viewModel()
     val meals = viewModel.mealsState.value
 
     LazyColumn(contentPadding = PaddingValues(16.dp)) {
         items(meals) { meal ->
-            MealCategory(meal = meal)
+            MealCategory(meal = meal, navigationCallBack)
         }
     }
 }
 
 @Composable
-fun MealCategory(meal: MealResponse) {
+fun MealCategory(meal: MealResponse, navigationCallBack: (String) -> Unit) {
     var isExpanded by remember { mutableStateOf(false) }
 
 
@@ -46,6 +46,9 @@ fun MealCategory(meal: MealResponse) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 16.dp)
+            .clickable {
+                navigationCallBack(meal.id)
+            }
     ) {
         Row(modifier = Modifier.animateContentSize()) {
             //Image
@@ -97,6 +100,6 @@ fun MealCategory(meal: MealResponse) {
 @Composable
 fun DefaultPreview() {
     MealzTheme {
-        MealCategoriesScreen()
+        MealCategoriesScreen({})
     }
 }

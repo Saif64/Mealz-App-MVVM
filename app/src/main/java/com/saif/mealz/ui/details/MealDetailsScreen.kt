@@ -15,12 +15,12 @@ import coil.transform.CircleCropTransformation
 import com.saif.mealz.ui.model.response.MealResponse
 
 @Composable
-fun MealDetailScreen(meal: MealResponse) {
+fun MealDetailScreen(meal: MealResponse?) {
     Column {
         Row {
             Card {
                 Image(
-                    painter = rememberImagePainter(data = meal.imageUrl,
+                    painter = rememberImagePainter(data = meal?.imageUrl,
                         builder = {
                             transformations(CircleCropTransformation())
                         }),
@@ -28,7 +28,7 @@ fun MealDetailScreen(meal: MealResponse) {
                     modifier = Modifier.size(200.dp)
                 )
             }
-            Text(text = meal.name)
+            Text(text = meal?.name ?: "default name")
         }
         Button(onClick = { /*TODO*/ }) {
             Text(text = "Change state of meal profile picture")
